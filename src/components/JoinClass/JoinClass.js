@@ -30,11 +30,14 @@ const outbox={
 const text ={
   display:'flex',
   justifyContent:'center',
-  color:'grey'
+  color:'grey',
   
 };
+const header={
+  textAlign:'center'
+};
 
-const CreateClass = (props) =>  {
+const JoinClass = (props) =>  {
 
       const {
         classname, 
@@ -56,10 +59,10 @@ const CreateClass = (props) =>  {
     <div >
 
     <Panel style={outbox} shaded>
-    <h3>Create Class</h3>
+    <h3>JoinClass</h3>
            
             <Panel style={box} bordered>
-              <h4 style={text}>Create Class</h4>
+              <h4 style={text}>JoinClass</h4>
               <Form fluid>
                 <FormGroup>
                   <ControlLabel>Class Name</ControlLabel>
@@ -89,7 +92,7 @@ const CreateClass = (props) =>  {
                 </FormGroup>
                 <FormGroup>
                   <ButtonToolbar>
-                    <Button color='green' onClick={handleForm}>Create</Button>
+                    <Button color='green' onClick={handleForm}>Join</Button>
                    
 
                   </ButtonToolbar>
@@ -105,4 +108,4 @@ const CreateClass = (props) =>  {
     }
   
   
-  export default CreateClass;
+  export default JoinClass;

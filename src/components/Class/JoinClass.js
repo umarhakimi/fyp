@@ -36,12 +36,12 @@ class JoinClass extends React.Component {
     render(){
     return(
         <div>
-            <Panel style={outbox} shaded>
-            <h3>Create Class</h3>
+    <Panel style={outbox} shaded>
+    <h4>Join Class</h4>
             
-            <a><Panel shaded style={small} >
-                <h6 style={text}>Class Info</h6>
-                <Form fluid>
+    <Panel shaded style={small} >
+    <h6 style={text}>Class Info</h6>
+    <Form fluid>
     <FormGroup>
       <ControlLabel>Class Code</ControlLabel>
       <FormControl name="Class" />
@@ -66,7 +66,7 @@ class JoinClass extends React.Component {
     </FormGroup>
   </Form>
 
-                </Panel></a>
+                </Panel>
                 
             </Panel>
           

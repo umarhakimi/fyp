@@ -1,10 +1,10 @@
 import React from 'react';
 import 'rsuite/lib/styles/index.less';
-import CreateClass from "../CreateClass/CreateClass";
+import JoinClass from "../JoinClass/JoinClass";
 import { useState, useEffect } from 'react';
 import fire from "../../fire";
 
-const CCService = () => {
+const JCService = () => {
   const [classname, setClassName] = useState('');
   const [classcode, setClassCode] = useState('');
   const [section, setSection] = useState(''); 
@@ -18,7 +18,7 @@ const CCService = () => {
 
 
   useEffect(() =>{
-    const getName = fire.database().ref('Students/'+user.uid + '/Profile');
+    const getName = fire.database().ref(user.uid + '/Profile');
     getName.once("value",(snapshot) =>{
 
         
@@ -30,8 +30,7 @@ const CCService = () => {
 
 
   function handleForm() {
-    const classRef= fire.database().ref('Students/'+user.uid + '/Class/' + classcode + '_'+section)
-    const createRef= fire.database().ref('Classref/' + classcode + '_'+section+'/creatordetails')
+    const classRef= fire.database().ref('Students'+user.uid + '/Class/' + classcode + '_'+section)
     const addName= fire.database().ref('Classref/' +classcode+ "_"+section+ '/studentlist/' + matricnum)
     
     const createclass = {
@@ -41,14 +40,7 @@ const CCService = () => {
       matricnum,
     }
     classRef.set(createclass);
-  
-    const reff = {
-      creator:user.uid,
-      cname:getname3.name,
-
-  
-    }
-    createRef.set(reff);
+ 
 
     const adname = {
       matricnum:matricnum,
@@ -63,7 +55,7 @@ const CCService = () => {
   return(
   
     <div>
-      <CreateClass 
+      <JoinClass 
       classname={classname} 
       setClassName={setClassName} 
       classcode={classcode} 
@@ -80,4 +72,4 @@ const CCService = () => {
     </div>
   );
   }
-export default CCService;
+export default JCService;

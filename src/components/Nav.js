@@ -6,7 +6,7 @@ import MCService from '../components/MyClass11/MCService';
 import Home from './Home2';
 import Student from "../components/MyClass/Student";
 import CCService from "../components/CreateClass/CCservice";
-import JoinClass from './Class/JoinClass';
+import JCService from '../components/JoinClass/JCService';
 import car from "../components/bg.jpg";
 
 
@@ -124,7 +124,7 @@ const bgnav={
                     >
                       <Dropdown.Item componentClass={NavLink} to="/components/MyClass/MCService"  eventKey="3-1">My Class</Dropdown.Item>
                       <Dropdown.Item componentClass={NavLink} to="/components/CreateClass/CCService"  eventKey="3-2">Create Class</Dropdown.Item>
-                      <Dropdown.Item componentClass={NavLink} to="/components/Class/JoinClass"  eventKey="3-2">Join Class</Dropdown.Item>
+                      <Dropdown.Item componentClass={NavLink} to="/components/JoinClass/JCService"  eventKey="3-2">Join Class</Dropdown.Item>
                     </Dropdown>
 
                     <Dropdown
@@ -155,7 +155,7 @@ const bgnav={
                         <Route exact path="/" component={Home} />     
                         <Route path="/components/MyClass/MCService" component={MCService} />
                         <Route path="/components/CreateClass/CCService" component={CCService} />
-                        <Route path="/components/Class/JoinClass" component={JoinClass} />
+                        <Route path="/components/JoinClass/JCService" component={JCService} />
                         <Route path="/components/Class/MyClass/Student"component={Student} />
                        
                         

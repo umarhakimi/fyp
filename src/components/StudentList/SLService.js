@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import fire from "../../fire";
-import MyClass from "../MyClass11/MyClass";
+import StudentList from "../StudentList/StudentList";
 import { Panel, Divider,Header, Button } from 'rsuite';
 import bg from "../bg.jpg";
 
@@ -14,11 +14,9 @@ const outbox={
     backgroundColor:'lightblue',
 };
 
-const header={
-    textAlign:'center'
-  };
 
-const MCService=()=>{
+
+const SLService=()=>{
 
 
     const [myClassList, setmyClassList] = useState();
@@ -28,7 +26,7 @@ const MCService=()=>{
 
     var user = fire.auth().currentUser;
     useEffect(() => {
-        const myClassRef = fire.database().ref( 'Students/'+user.uid + '/Class');
+        const myClassRef = fire.database().ref( 'Classref/' +Class.classcode + '_'+Class.section+ '/studentlist/'+Class.matricnum);
         myClassRef.on("value",(snapshot) => {
             const myClassF = snapshot.val();
             console.log(snapshot);
@@ -48,12 +46,12 @@ const MCService=()=>{
         <div>
           
                 <Panel style={outbox} shaded>
-                <h3 style={header}>Profile</h3>
+                <h3>Profile</h3>
  
      
     
          {myClassList 
-         ? myClassList.map((Class, index) => <MyClass Class={Class} key={index}/>)
+         ? myClassList.map((Class, index) => <StudentList Class={Class} key={index}/>)
         : ''}
         
         
@@ -67,4 +65,4 @@ const MCService=()=>{
         
     )
 }
-export default MCService;
+export default SLService;

@@ -1,15 +1,10 @@
-import React, {Component} from "react";
+import React from "react";
 import QRCode from 'qrcode.react';
 
 function Iattend() {
     return(
         <div>
-            <QRCode
-    classcode="123456"
-    longitude="123456"
-    latitude="123456"
-    includeMargin={true}
-  />
+            <QRCode value="http://facebook.github.io/react/" />
         </div>
     );
 }

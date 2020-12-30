@@ -34,12 +34,12 @@ class Home extends React.Component {
             <Panel style={outbox} shaded>
             <h3>Profile</h3>
             
-            <a><Panel shaded style={small} >
+            <Panel shaded style={small} >
                 <h6 style={text}>UMAR HAKIMI ZAHABUDDIN | LEVEL 3</h6>
                 <img style={{marginLeft:170,marginBottom:40, borderRadius:120, height:130, width:120, marginTop:20, display:'flex', alignItems:'center'}} src={image} />
                 <h6 style={{marginLeft:115,color:'grey'}}>KULIYAH OF INFORMATION AND COMUNICATION TECHNOLOGY</h6>
             
-                </Panel></a>
+                </Panel>
                 <Panel shaded style={{backgroundColor:'white'}}>
                     <p>Name: UMAR HAKIMI ZAHABUDDIN</p>  <p><span>Email </span>:</p>
 			         <ul>
