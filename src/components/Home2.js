@@ -40,6 +40,7 @@ class Home extends React.Component {
                 <h6 style={{marginLeft:115,color:'grey'}}>KULIYAH OF INFORMATION AND COMUNICATION TECHNOLOGY</h6>
             
                 </Panel>
+                <Divider vertical/>
                 <Panel shaded style={{backgroundColor:'white'}}>
                     <p>Name: UMAR HAKIMI ZAHABUDDIN</p>  <p><span>Email </span>:</p>
 			         <ul>

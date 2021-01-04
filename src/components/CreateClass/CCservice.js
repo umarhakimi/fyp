@@ -26,7 +26,7 @@ const CCService = () => {
    
        
     });
-});
+},[]);
 
 
   function handleForm() {
@@ -53,6 +53,8 @@ const CCService = () => {
     const adname = {
       matricnum:matricnum,
       name:getname3.name,
+      classcode:classcode,
+      section:section,
   
     }
     addName.set(adname);

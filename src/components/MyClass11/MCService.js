@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import fire from "../../fire";
 import MyClass from "../MyClass11/MyClass";
-import { Panel, Divider,Header, Button } from 'rsuite';
+import { Panel, Divider,Header, Button, FlexboxGrid } from 'rsuite';
 import bg from "../bg.jpg";
 
 const outbox={
@@ -11,11 +11,16 @@ const outbox={
     marginTop:20,
     marginLeft:20,
     //backgroundImage:`url(${bg})`,
-    backgroundColor:'lightblue',
+    backgroundColor:'#27ae60',
+    justify:'center',
+    width:'1500',
+    shaded:'true',
+ 
 };
 
 const header={
-    textAlign:'center'
+    textAlign:'center',
+    color:'white'
   };
 
 const MCService=()=>{
@@ -45,21 +50,21 @@ const MCService=()=>{
 
  
     return(
-        <div>
-          
-                <Panel style={outbox} shaded>
+        <div >
+          <FlexboxGrid justify={'center'} style={outbox}>
+                <Panel  just>
                 <h3 style={header}>Profile</h3>
  
      
     
          {myClassList 
-         ? myClassList.map((Class, index) => <MyClass Class={Class} key={index}/>)
+         ? myClassList.map((Class, index) => <MyClass Class={Class} key={index} />)
         : ''}
         
         
 </Panel>
           
-            
+</FlexboxGrid>   
       
       
 

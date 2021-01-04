@@ -7,6 +7,8 @@ import Iattend from "../Iattend";
 import StudentList from "../StudentList/StudentList";
 import QRCode from 'qrcode.react';
 import fire from "../../fire";
+import Group from "../Group/Group"
+
 
 const outbox={
     padding:10,
@@ -20,10 +22,11 @@ const outbox={
 
 const small={
     width:1000,
-    marginLeft:250,
+
     justifyContent:'center',
     marginTop:70,
     backgroundColor:'white',
+    
     
 };
 const text ={
@@ -61,9 +64,13 @@ export default function MyClass ({Class}){
 
    const [handleToggle,setHandleToggle] = useState(false);
    const [handleAttendance, setHandleAttendance] = useState(false);
+   const [handleGroup,setHandleGroup] = useState(false);
    const [getname3,setgetname3] = useState('');
    const [getstudent3, setgetstudent3] = useState();
- 
+   const [test, settest]=useState(Class.classcode); 
+
+    console.log(test);
+
    useEffect(() =>{
     const getName = fire.database().ref('Classref/' +Class.classcode + '_'+Class.section+ '/creatordetails');
     getName.once("value",(snapshot) =>{
@@ -74,17 +81,7 @@ export default function MyClass ({Class}){
     });
 },[]);
 
-
-
-//useEffect(() =>{
-  // const getName = fire.database().ref('Classref/' +Class.classcode + '_'+Class.section+ '/studentlist/'+Class.matricnum);
-   //getName.on("value",(snapshot) =>{
-
-        
-     //  setgetstudent(snapshot.val());
-        
-    //});
-//},[]);
+var user = fire.auth().currentUser;
 
 useEffect(() => {
     const getstudent = fire.database().ref( 'Classref/' +Class.classcode + '_'+Class.section+ '/studentlist');
@@ -104,6 +101,11 @@ useEffect(() => {
 
 
 
+
+
+
+
+
     return(
         <div>
             <Panel shaded style={small} >
@@ -117,7 +119,7 @@ useEffect(() => {
             <Drawer
                 show={handleAttendance}>
                 <Drawer.Header>
-                    <Drawer.Title>Attendance</Drawer.Title>
+                    <Drawer.Title>{Class.classname}</Drawer.Title>
                 </Drawer.Header>
                 <Drawer.Body>
                     <di>{<Iattend/>}</di>
@@ -130,18 +132,17 @@ useEffect(() => {
             
             <Divider vertical />
 
-            <Button color={"green"} style={button} onClick={()=>setHandleToggle(true)}>Student</Button>
+            <Button color={"green"} style={button} onClick={()=>setHandleToggle(true)}>Participant</Button>
             <Drawer
                 show={handleToggle}>
                 <Drawer.Header>
-                    <Drawer.Title>Student List</Drawer.Title>
+                    <Drawer.Title>{Class.classname}</Drawer.Title>
                 </Drawer.Header>
                     <Drawer.Body>
                         <div>
                         {getstudent3 
                             ? getstudent3.map((Student, index) => <StudentList Student={Student} key={index}/>)
                         : ''}
-         
                         </div>
                     </Drawer.Body>
                 <Drawer.Footer>
@@ -153,7 +154,25 @@ useEffect(() => {
 
 
         <Divider vertical />
-            <Button color={"green"} style={button} >etc</Button>    
+            <Button color={"green"} style={button} onClick={()=>setHandleGroup(true)}>Group</Button>    
+            <Drawer
+                show={handleGroup}>
+                <Drawer.Header>
+                    <Drawer.Title>{Class.classname}</Drawer.Title>
+                </Drawer.Header>
+                    <Drawer.Body>
+                      <div>
+                          <Group classcode={Class.classcode} section={Class.section} classname={Class.classname}/>
+                      </div>
+                    </Drawer.Body>
+                <Drawer.Footer>
+                    <Button appearance="primary" color={"green"}style={button} onClick={()=>setHandleGroup(false)}>Close</Button>
+                </Drawer.Footer>
+            </Drawer>  
+
+        <Divider vertical />
+
+            <Button color={"green"} style={button} >Delete</Button>  
             </Panel>
                 
         

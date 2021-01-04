@@ -23,7 +23,8 @@ const outbox={
   marginRight:50,
   marginTop:20,
   marginLeft:20,
-  backgroundImage:`url(${bg})`,
+  //backgroundImage:`url(${bg})`,
+  backgroundColor:'#27ae60',
 
 };
 

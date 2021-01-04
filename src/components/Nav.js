@@ -127,17 +127,7 @@ const bgnav={
                       <Dropdown.Item componentClass={NavLink} to="/components/JoinClass/JCService"  eventKey="3-2">Join Class</Dropdown.Item>
                     </Dropdown>
 
-                    <Dropdown
-                      eventKey="3"
-                      trigger="hover"
-                      title="E-wallet"
-                      icon={<Icon icon="money" />}
-                      placement="rightStart"
-                    >
-                      <Dropdown.Item eventKey="4-1">Applications</Dropdown.Item>
-                      <Dropdown.Item eventKey="4-2">Websites</Dropdown.Item>
-                
-                    </Dropdown>
+                    
                   </Nav>
                 </Sidenav.Body>
               </Sidenav>

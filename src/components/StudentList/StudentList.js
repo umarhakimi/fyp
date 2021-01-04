@@ -40,35 +40,35 @@ const text3 ={
   
     
 };
-const button ={
-    marginLeft:30,
-    width:100,
+const panel ={
+    marginTop:10
 };
 
 
 
-export default function MyClass ({Student}){
+export default function StudentList ({Student}){
 
    const [handleToggle,setHandleToggle] = useState(false);
 
 
- 
- 
+   var user = fire.auth().currentUser;
+   function handleDelete() {
+    const classdel= fire.database().ref('Students/'+user.uid + '/Class/' + Student.classcode + '_'+Student.section)
+    const namedel= fire.database().ref('Classref/' +Student.classcode+ "_"+Student.section+ '/studentlist/' + Student.matricnum)
+    
+    classdel.remove();
+    namedel.remove();
+    console.log(Student.classcode);
+};
 
 
 
     return(
         <div>
-
-        
-            <Divider />
-            <h5 style={text2}>{Student.name} <Divider vertical/> : {Student.matricnum}  </h5>
-            <Divider />
-             
-
-                
-        
-          
+            <Panel style={panel} bordered shaded>
+      
+            <h7 style={text2}>{Student.name} <Divider vertical/> : {Student.matricnum} <Divider vertical/> <Button color={'red'}  onClick={handleDelete}>Leave</Button></h7>
+            </Panel>
       </div>
   
     );
