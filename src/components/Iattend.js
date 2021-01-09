@@ -12,8 +12,8 @@ const text ={
 const QR ={
 
     width:500,
-    height:200,
-   
+    height:500,
+    
     alignItems:'center'
 }
 const box={
@@ -24,15 +24,18 @@ const box={
     
   };
 
+
 function Iattend() {
+
+    const umar='hakimi'
 
 
     return(
         <div>
             <Panel style={box} shaded>
                 <Header>Class Name</Header>
-                <QRCode
-      value="umar"
+                <QRCode style={QR}
+      value={'Umar,' + umar}
     />
     <div>
             <Button style={text}>Create Attendance</Button>

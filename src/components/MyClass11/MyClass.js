@@ -8,7 +8,7 @@ import StudentList from "../StudentList/StudentList";
 import QRCode from 'qrcode.react';
 import fire from "../../fire";
 import Group from "../Group/Group"
-
+import Attendance from "../Class/Attendace/Attendace"
 
 const outbox={
     padding:10,
@@ -64,10 +64,14 @@ export default function MyClass ({Class}){
 
    const [handleToggle,setHandleToggle] = useState(false);
    const [handleAttendance, setHandleAttendance] = useState(false);
+   const [handleAttendance2, setHandleAttendance2] = useState(false);
    const [handleGroup,setHandleGroup] = useState(false);
    const [getname3,setgetname3] = useState('');
    const [getstudent3, setgetstudent3] = useState();
    const [test, settest]=useState(Class.classcode); 
+   const [classcode, setClassCode] = useState('');
+   const [section, setSection] = useState(''); 
+   const [matricnum, setMatricNum] = useState('');
 
     console.log(test);
 
@@ -100,7 +104,22 @@ useEffect(() => {
 },[]);
 
 
+function handleForm() {
+   
+    const addName= fire.database().ref('Classref/' +Class.classcode+ "_"+Class.section+ '/Attendance')
+    
 
+    const adname = {
+      date:date.toLocaleDateString(),
+    }
+    addName.push(adname);
+
+};
+
+
+
+var [date,setDate] = useState(new Date());
+let MM= date.getDate();
 
 
 
@@ -108,6 +127,8 @@ useEffect(() => {
 
     return(
         <div>
+            <div>{date.toLocaleDateString()}</div>
+            <div>{MM}</div>
             <Panel shaded style={small} >
             <h4 style={text}>{Class.classname}</h4>
             <Divider />
@@ -116,8 +137,10 @@ useEffect(() => {
             <h5 style={text2}>SECTION {Class.section}</h5>
 
             <Button color={"green"} style={button} onClick={()=>setHandleAttendance(true)}>Attendance</Button>  
-            <Drawer
-                show={handleAttendance}>
+            
+
+            <Drawer size={'xl'}
+                show={handleAttendance2}>
                 <Drawer.Header>
                     <Drawer.Title>{Class.classname}</Drawer.Title>
                 </Drawer.Header>
@@ -125,7 +148,23 @@ useEffect(() => {
                     <di>{<Iattend/>}</di>
                 </Drawer.Body>
                 <Drawer.Footer>
+                    <Button color={"green"} style={button} onClick={()=>setHandleAttendance2(false)}>Close</Button>  
+                </Drawer.Footer>
+            </Drawer>        
+
+            
+            <Drawer
+                show={handleAttendance}>
+                <Drawer.Header>
+                    <Drawer.Title>{Class.classname}</Drawer.Title>
+                </Drawer.Header>
+                <Drawer.Body>
+                    <di>{<Attendance/>}</di>
+                </Drawer.Body>
+                <Drawer.Footer>
                     <Button appearance="primary" color={"green"}style={button} onClick={()=>setHandleAttendance(false)}>Close</Button>
+                    <Button color={"green"} style={button} onClick={()=>setHandleAttendance2(true)}>Create</Button>  
+                    <Button color={"green"} style={button} onClick={handleForm}>Test</Button>  
                 </Drawer.Footer>
             </Drawer>        
 

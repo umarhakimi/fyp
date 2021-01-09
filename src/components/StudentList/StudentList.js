@@ -67,7 +67,7 @@ export default function StudentList ({Student}){
         <div>
             <Panel style={panel} bordered shaded>
       
-            <h7 style={text2}>{Student.name} <Divider vertical/> : {Student.matricnum} <Divider vertical/> <Button color={'red'}  onClick={handleDelete}>Leave</Button></h7>
+            <h7 style={text2}>{Student.name} <Divider vertical/> : {Student.matricnum} <Divider vertical/> <Button color={'red'} justifyContent={'right'} onClick={handleDelete}>Leave</Button></h7>
             </Panel>
       </div>
   
