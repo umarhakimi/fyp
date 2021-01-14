@@ -3,6 +3,7 @@ import 'rsuite/lib/styles/index.less';
 import CreateClass from "../CreateClass/CreateClass";
 import { useState, useEffect } from 'react';
 import fire from "../../fire";
+import {Alert } from 'rsuite';
 
 const CCService = () => {
   const [classname, setClassName] = useState('');
@@ -12,6 +13,7 @@ const CCService = () => {
   const [creator, setCreator] = useState('');
   const [studentlist] = useState ('');
   const [getname3,setgetname3] = useState('');
+  const [getname4,setgetname4] = useState('');
   
   
   var user = fire.auth().currentUser;
@@ -23,13 +25,24 @@ const CCService = () => {
 
         
         setgetname3(snapshot.val());
-   
-       
+      
+  
     });
 },[]);
 
+useEffect(() =>{
+  const getNames = fire.database().ref('Classref/CCUB 3603_1/studentlist/1714851');
+  getNames.once("value",(snapshot) =>{
+
+      
+      setgetname4(snapshot.val());
+ 
+     console.log(getname4.status);
+  });
+},[]);
 
   function handleForm() {
+    const alert = Alert.success('New class has been created')
     const classRef= fire.database().ref('Students/'+user.uid + '/Class/' + classcode + '_'+section)
     const createRef= fire.database().ref('Classref/' + classcode + '_'+section+'/creatordetails')
     const addName= fire.database().ref('Classref/' +classcode+ "_"+section+ '/studentlist/' + matricnum)
@@ -39,6 +52,7 @@ const CCService = () => {
       classcode,
       section,
       matricnum,
+  
     }
     classRef.set(createclass);
   
@@ -55,16 +69,19 @@ const CCService = () => {
       name:getname3.name,
       classcode:classcode,
       section:section,
+      status:"INSTRUCTOR"
   
     }
     addName.set(adname);
-
+    console.log(getname3.name)
+    console.log(getname3.matricnum)
 };
 
 
   return(
   
     <div>
+   
       <CreateClass 
       classname={classname} 
       setClassName={setClassName} 

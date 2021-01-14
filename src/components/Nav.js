@@ -1,13 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
-import { Sidenav, Nav, Dropdown, Icon, Navbar, Container, Sidebar,Header, Content, Panel } from 'rsuite';
+import { Sidenav, Nav, Dropdown, Icon, Navbar, Container, Sidebar,Header, Content, Panel, Button } from 'rsuite';
 import 'rsuite/lib/styles/index.less';
 import MCService from '../components/MyClass11/MCService';
 import Home from './Home2';
+//import HService from '../components/Home/HService'
 import Student from "../components/MyClass/Student";
 import CCService from "../components/CreateClass/CCservice";
 import JCService from '../components/JoinClass/JCService';
 import car from "../components/bg.jpg";
+import fire from "../fire";
 
 
 const outbox={
@@ -42,20 +44,31 @@ const bgnav={
    backgroundColor:'#eff3f0'
  };
   
+ const button={
+    width:80,
+    height:44
+ };
+
   const NavToggle = ({ expand, onChange }) => {
+  
+  
+    const handleLogOut = () => {
+    fire.auth().signOut();
+  };
+    
     return (
       
       <Navbar style={bgnav} appearance="subtle" className="nav-toggle">
         <Navbar.Body>
           <Nav>
             <Dropdown
-              placement="topStart"
+              placement="rightStart"
               trigger="click"
               renderTitle={children => {
                 return <Icon style={iconStyles} icon="cog" />;
               }}
             >
-              <Dropdown.Item >Sign out</Dropdown.Item>
+              <Dropdown.Item style={button} onClick={handleLogOut}>Sign out</Dropdown.Item>
             </Dropdown>
           </Nav>
   
@@ -124,7 +137,6 @@ const bgnav={
                     >
                       <Dropdown.Item componentClass={NavLink} to="/components/MyClass/MCService"  eventKey="3-1">My Class</Dropdown.Item>
                       <Dropdown.Item componentClass={NavLink} to="/components/CreateClass/CCService"  eventKey="3-2">Create Class</Dropdown.Item>
-                      <Dropdown.Item componentClass={NavLink} to="/components/JoinClass/JCService"  eventKey="3-2">Join Class</Dropdown.Item>
                     </Dropdown>
 
                     
@@ -145,7 +157,6 @@ const bgnav={
                         <Route exact path="/" component={Home} />     
                         <Route path="/components/MyClass/MCService" component={MCService} />
                         <Route path="/components/CreateClass/CCService" component={CCService} />
-                        <Route path="/components/JoinClass/JCService" component={JCService} />
                         <Route path="/components/Class/MyClass/Student"component={Student} />
                        
                         

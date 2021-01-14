@@ -1,6 +1,6 @@
 import React  from "react";
 import {FormControl, FormGroup, ControlLabel, ButtonToolbar, Button} from "rsuite";
-import {Navbar, Container, Header, Content, FlexboxGrid, Panel, Form } from 'rsuite';
+import {Navbar, Container, Header, Content, FlexboxGrid, Panel, Form, Alert } from 'rsuite';
 import bg from "../bg.jpg";
 
 import {NavLink, Switch, Route, BrowserRouter as Router} from "react-router-dom";
@@ -90,7 +90,7 @@ const CreateClass = (props) =>  {
                 </FormGroup>
                 <FormGroup>
                   <ButtonToolbar>
-                    <Button color='green' onClick={handleForm}>Create</Button>
+                    <Button color='green' onClick={handleForm} >Create</Button>
                    
 
                   </ButtonToolbar>

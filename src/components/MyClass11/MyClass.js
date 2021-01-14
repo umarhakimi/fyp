@@ -57,6 +57,10 @@ const button ={
     marginLeft:30,
     width:100,
 };
+const button1 ={
+    width:100,
+};
+
 
 
 
@@ -66,22 +70,23 @@ export default function MyClass ({Class}){
    const [handleAttendance, setHandleAttendance] = useState(false);
    const [handleAttendance2, setHandleAttendance2] = useState(false);
    const [handleGroup,setHandleGroup] = useState(false);
-   const [getname3,setgetname3] = useState('');
+   const [getname3,setgetname3] = useState([]);
    const [getstudent3, setgetstudent3] = useState();
    const [test, settest]=useState(Class.classcode); 
    const [classcode, setClassCode] = useState('');
    const [section, setSection] = useState(''); 
    const [matricnum, setMatricNum] = useState('');
+   const [getAttendance,setGetAttendance] = useState('');
 
-    console.log(test);
+   
 
    useEffect(() =>{
     const getName = fire.database().ref('Classref/' +Class.classcode + '_'+Class.section+ '/creatordetails');
     getName.once("value",(snapshot) =>{
 
-        
+        const getname3=[];
         setgetname3(snapshot.val());
-        
+        console.log(getname3.creator)
     });
 },[]);
 
@@ -91,44 +96,74 @@ useEffect(() => {
     const getstudent = fire.database().ref( 'Classref/' +Class.classcode + '_'+Class.section+ '/studentlist');
     getstudent.on("value",(snapshot) => {
         const getstudent2 = snapshot.val();
-        console.log(snapshot);
+      
         const getstudent3=[];
         for (let id in getstudent2){
             getstudent3.push(getstudent2[id]);
            
         }
         setgetstudent3(getstudent3);
-        console.log(getstudent3);
-
     });
 },[]);
 
 
-function handleForm() {
-   
-    const addName= fire.database().ref('Classref/' +Class.classcode+ "_"+Class.section+ '/Attendance')
-    
 
-    const adname = {
-      date:date.toLocaleDateString(),
-    }
-    addName.push(adname);
+function copyFbRecord() {    
+    const getData = fire.database().ref('Classref/' +Class.classcode + '_'+Class.section+ '/studentlist');
+    const putData= fire.database().ref('Classref/' +Class.classcode+ "_"+Class.section+ '/Attendance/'+DD+'_'+MM+'_'+YY+'/member')
+    const putStatus= fire.database().ref('Classref/' +Class.classcode+ "_"+Class.section+ '/Attendance/'+DD+'_'+MM+'_'+YY)
 
-};
+ 
 
+    return new Promise((resolve, reject) => {
+         getData.once('value').then(snap => {
+              return putData.set(snap.val());
+         }).then(() => {
+              console.log('Done!');
+              resolve();
+         }).catch(err => {
+            
+              reject();
+           
+         });
+         const reff = {
+            day:DD,
+            month:MM,
+            year:YY,
+            classcode:Class.classcode,
+            section:Class.section,
+          }
+          putStatus.set(reff);
+
+      
+    });
+}
+
+useEffect(() => {
+    const inforef = fire.database().ref('Classref/'+Class.classcode + '_'+Class.section+'/Attendance');
+    inforef.on("value",(snapshot) => {
+        const myinfo = snapshot.val();
+  
+        const getAttendance=[];
+        for (let id in myinfo){
+            getAttendance.push(myinfo[id]);
+           
+        }
+        setGetAttendance(getAttendance);
+      
+    });
+},[]);
 
 
 var [date,setDate] = useState(new Date());
-let MM= date.getDate();
-
-
-
+let DD= date.getDate();
+let MM = date.getMonth()+1;
+const YY = date.getFullYear();
 
 
     return(
         <div>
-            <div>{date.toLocaleDateString()}</div>
-            <div>{MM}</div>
+        
             <Panel shaded style={small} >
             <h4 style={text}>{Class.classname}</h4>
             <Divider />
@@ -139,13 +174,13 @@ let MM= date.getDate();
             <Button color={"green"} style={button} onClick={()=>setHandleAttendance(true)}>Attendance</Button>  
             
 
-            <Drawer size={'xl'}
+            <Drawer 
                 show={handleAttendance2}>
                 <Drawer.Header>
                     <Drawer.Title>{Class.classname}</Drawer.Title>
                 </Drawer.Header>
                 <Drawer.Body>
-                    <di>{<Iattend/>}</di>
+                    <div><Iattend classcode={Class.classcode} section={Class.section} classname={Class.classname}/></div>
                 </Drawer.Body>
                 <Drawer.Footer>
                     <Button color={"green"} style={button} onClick={()=>setHandleAttendance2(false)}>Close</Button>  
@@ -159,12 +194,17 @@ let MM= date.getDate();
                     <Drawer.Title>{Class.classname}</Drawer.Title>
                 </Drawer.Header>
                 <Drawer.Body>
-                    <di>{<Attendance/>}</di>
+                    <div>
+             {getAttendance 
+                            ? getAttendance.map((Info, index) => <Attendance Info={Info} key={index} />)
+                        : ''}
+                        <Panel><Button color={"green"} style={button1} onClick={copyFbRecord}>New</Button> </Panel>
+                        </div>
                 </Drawer.Body>
                 <Drawer.Footer>
                     <Button appearance="primary" color={"green"}style={button} onClick={()=>setHandleAttendance(false)}>Close</Button>
                     <Button color={"green"} style={button} onClick={()=>setHandleAttendance2(true)}>Create</Button>  
-                    <Button color={"green"} style={button} onClick={handleForm}>Test</Button>  
+              
                 </Drawer.Footer>
             </Drawer>        
 
@@ -179,8 +219,8 @@ let MM= date.getDate();
                 </Drawer.Header>
                     <Drawer.Body>
                         <div>
-                        {getstudent3 
-                            ? getstudent3.map((Student, index) => <StudentList Student={Student} key={index}/>)
+                        {getAttendance 
+                            ? getAttendance.map((Student, index) => <StudentList Student={Student} key={index} />)
                         : ''}
                         </div>
                     </Drawer.Body>

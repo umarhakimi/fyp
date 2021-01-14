@@ -18,7 +18,7 @@ export default function GroupList ({Name}){
     return(
         <div>
             <Panel bordered style={panel}>
-           <h5> {Name.name}</h5>
+           <h7> {Name.name}</h7>
           
            </Panel>
       </div>

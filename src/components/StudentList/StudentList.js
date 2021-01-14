@@ -6,6 +6,7 @@ import {Drawer} from 'rsuite';
 import Iattend from "../Iattend";
 import QRCode from 'qrcode.react';
 import fire from "../../fire";
+import StudentService from './StudentService';
 
 
 const small={
@@ -43,12 +44,16 @@ const text3 ={
 const panel ={
     marginTop:10
 };
+const button={
+    marginLeft:15,
+};
 
 
 
 export default function StudentList ({Student}){
 
    const [handleToggle,setHandleToggle] = useState(false);
+   const [getAttendance, setGetAttendance] = useState();
 
 
    var user = fire.auth().currentUser;
@@ -63,12 +68,49 @@ export default function StudentList ({Student}){
 
 
 
+useEffect(() => {
+    const inforef = fire.database().ref('Classref/'+Student.classcode + '_'+Student.section+'/Attendance/'+Student.day+'_'+Student.month+'_'+Student.year+'/member');
+    inforef.on("value",(snapshot) => {
+        const myinfo = snapshot.val();
+        console.log(snapshot);
+        const getAttendance=[];
+        for (let id in myinfo){
+            getAttendance.push(myinfo[id]);
+           
+        }
+        setGetAttendance(getAttendance);
+        console.log(getAttendance.matricnum)
+        console.log(Student.day);
+    });
+},[]);
+
+
     return(
         <div>
             <Panel style={panel} bordered shaded>
       
-            <h7 style={text2}>{Student.name} <Divider vertical/> : {Student.matricnum} <Divider vertical/> <Button color={'red'} justifyContent={'right'} onClick={handleDelete}>Leave</Button></h7>
+            
+            <Button color={'green'} onClick={()=>setHandleToggle(true)}>View</Button>
+            <Button style={button} color={'red'} justifyContent={'right'} onClick={handleDelete}>Leave</Button>
+       
+            <Drawer  placement={'right'}
+                show={handleToggle}>
+                <Drawer.Header>
+                    <Drawer.Title> </Drawer.Title>
+                </Drawer.Header>
+                <Drawer.Body>
+                    <div>
+                    {getAttendance 
+                        ? getAttendance.map((Info, index) => <StudentService Info={Info} key={index} />)
+                    : ''} 
+                    </div>
+                </Drawer.Body>
+                <Drawer.Footer>
+                    <Button appearance="primary" color={"green"}onClick={()=>setHandleToggle(false)}>Close</Button>
+                </Drawer.Footer>
+            </Drawer>        
             </Panel>
+        
       </div>
   
     );

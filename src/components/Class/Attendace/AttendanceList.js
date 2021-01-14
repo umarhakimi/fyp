@@ -3,7 +3,6 @@ import QRCode from 'qrcode.react';
 import { Button, Divider, Header } from "rsuite";
 import {Panel, Drawer} from 'rsuite';
 import fire from "../../../fire";
-import AttendanceList from "./AttendanceList";
 
 const text ={
     alignItems:'center',
@@ -26,13 +25,12 @@ const box={
   };
 
 
-function Attendance({Info}) {
+function AttendanceList({Info}) {
 
     const umar='hakimi';
     const [getname3,setgetname3] = useState();
     const [getname2,setgetname2] = useState();
     const [getAttendance, setGetAttendance] = useState();
-    const [handleView,setHandleView]=useState(false);
 
     useEffect(() => {
         const inforef = fire.database().ref('Classref/'+Info.classcode + '_'+Info.section+'/Attendance/'+Info.day+'_'+Info.month+'_'+Info.year+'/member');
@@ -52,26 +50,12 @@ function Attendance({Info}) {
     
     return(
         <div>
-             
-                   <Panel bordered shaded >
-           <h5>Date : {Info.day}/{Info.month}/{Info.year}<Divider vertical/><Button color={'green'} onClick={()=>setHandleView(true)} >View</Button></h5>
-           <Drawer  placement={'right'}
-                show={handleView}>
-                <Drawer.Header>
-                    <Drawer.Title>{Info.day}/{Info.month}/{Info.year} </Drawer.Title>
-                </Drawer.Header>
-                <Drawer.Body>
-                    <div>
-                    {getAttendance 
-                        ? getAttendance.map((Info, index) => <AttendanceList Info={Info} key={index} />)
-                    : ''} 
-                    </div>
-                </Drawer.Body>
-                <Drawer.Footer>
-                    <Button appearance="primary" color={"green"}onClick={()=>setHandleView(false)}>Close</Button>
-                </Drawer.Footer>
-            </Drawer>        
-           </Panel>
+             <Panel shaded bordered>
+                       <div>
+                       <h7>{Info.name}:<Divider vertical/><Divider vertical/>{Info.status}</h7>
+                       </div>
+                       
+                   </Panel>
 
             
         </div>
@@ -79,4 +63,4 @@ function Attendance({Info}) {
     );
 }
 
-export default Attendance;
+export default AttendanceList;
