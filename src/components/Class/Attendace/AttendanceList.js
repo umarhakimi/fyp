@@ -24,6 +24,10 @@ const box={
     
   };
 
+  const panel ={
+    marginTop:10
+};
+
 
 function AttendanceList({Info}) {
 
@@ -33,7 +37,7 @@ function AttendanceList({Info}) {
     const [getAttendance, setGetAttendance] = useState();
 
     useEffect(() => {
-        const inforef = fire.database().ref('Classref/'+Info.classcode + '_'+Info.section+'/Attendance/'+Info.day+'_'+Info.month+'_'+Info.year+'/member');
+        const inforef = fire.database().ref('Classreff/'+Info.classcode + '_'+Info.section+'/Attendance/'+Info.day+'_'+Info.month+'_'+Info.year+'/member');
         inforef.on("value",(snapshot) => {
             const myinfo = snapshot.val();
             console.log(snapshot);
@@ -50,7 +54,7 @@ function AttendanceList({Info}) {
     
     return(
         <div>
-             <Panel shaded bordered>
+             <Panel style={panel} shaded bordered>
                        <div>
                        <h7>{Info.name}:<Divider vertical/><Divider vertical/>{Info.status}</h7>
                        </div>

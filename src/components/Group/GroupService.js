@@ -20,7 +20,7 @@ export default function GroupService ({Info}){
     const [getinfo, setgetinfo] = useState();
 
     useEffect(() =>{
-        const getName = fire.database().ref('Students/'+user.uid + '/Profile');
+        const getName = fire.database().ref('Students/'+user.uid + '/profile');
         getName.once("value",(snapshot) =>{
     
             
@@ -35,7 +35,7 @@ export default function GroupService ({Info}){
 
     function handleJoin() {
    
-    const joingroup= fire.database().ref('Classref/' + Info.classcode + '_'+ Info.section+'/Group/'+Info.gname+'/1714851') 
+    const joingroup= fire.database().ref('Classreff/' + Info.classcode + '_'+ Info.section+'/Group/'+Info.gname+'/1714851') 
     const group = {
       name:"umar hakimi",      
     }
@@ -46,7 +46,7 @@ export default function GroupService ({Info}){
 console.log(getprofile.name);
 
 useEffect(() => {
-    const inforef = fire.database().ref('Classref/'+Info.classcode + '_'+Info.section+'/Group/'+Info.gname+'/member');
+    const inforef = fire.database().ref('Classreff/'+Info.classcode + '_'+Info.section+'/Group/'+Info.gname+'/member');
     inforef.on("value",(snapshot) => {
         const myinfo = snapshot.val();
         console.log(snapshot);

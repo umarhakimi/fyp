@@ -27,6 +27,13 @@ const outbox={
     marginTop:20,
     marginLeft:20,
 
+};const imgs={
+    padding:10,
+    height:877,
+    marginRight:50,
+    marginTop:20,
+    marginLeft:20,
+
 };
 
 const Home = (props) => {
@@ -40,7 +47,7 @@ const Home = (props) => {
             
             <Panel shaded style={small} >
                 <h6 style={text}>{name} </h6>
-                <img style={{marginLeft:170,marginBottom:40, borderRadius:120, height:130, width:120, marginTop:20, display:'flex', alignItems:'center'}} src={image} />
+                <img style={imgs} src={image} />
                 <h6 style={{marginLeft:115,color:'grey'}}>{course}</h6>
             
                 </Panel>

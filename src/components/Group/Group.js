@@ -24,7 +24,7 @@ const Group = (props) => {
     const [getprofile,setgetprofile] = useState('');
     
     useEffect(() =>{
-        const getName = fire.database().ref('Students/'+user.uid + '/Profile');
+        const getName = fire.database().ref('Students/'+user.uid + '/profile');
         getName.once("value",(snapshot) =>{
     
             
@@ -36,8 +36,8 @@ const Group = (props) => {
     
     function handleGroup() {
    
-        const creategroup= fire.database().ref('Classref/' + classcode + '_'+section+'/Group/'+groupname) 
-        const adname= fire.database().ref('Classref/' + classcode + '_'+section+'/Group/'+groupname+'/member/'+getprofile.matricnum) 
+        const creategroup= fire.database().ref('Classreff/' + classcode + '_'+section+'/Group/'+groupname) 
+        const adname= fire.database().ref('Classreff/' + classcode + '_'+section+'/Group/'+groupname+'/member/'+getprofile.matricnum) 
 
         const group = {
           gname:groupname,
@@ -58,7 +58,7 @@ const Group = (props) => {
     
 
 useEffect(() => {
-    const inforef = fire.database().ref('Classref/'+classcode + '_'+section+'/Group');
+    const inforef = fire.database().ref('Classreff/'+classcode + '_'+section+'/Group');
     inforef.on("value",(snapshot) => {
         const myinfo = snapshot.val();
         console.log(snapshot);

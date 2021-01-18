@@ -20,7 +20,7 @@ const CCService = () => {
 
 
   useEffect(() =>{
-    const getName = fire.database().ref('Students/'+user.uid + '/Profile');
+    const getName = fire.database().ref('Students/'+user.uid + '/profile');
     getName.once("value",(snapshot) =>{
 
         
@@ -31,7 +31,7 @@ const CCService = () => {
 },[]);
 
 useEffect(() =>{
-  const getNames = fire.database().ref('Classref/CCUB 3603_1/studentlist/1714851');
+  const getNames = fire.database().ref('Classreff/CCUB 3603_1/studentlist/1714851');
   getNames.once("value",(snapshot) =>{
 
       
@@ -44,8 +44,10 @@ useEffect(() =>{
   function handleForm() {
     const alert = Alert.success('New class has been created')
     const classRef= fire.database().ref('Students/'+user.uid + '/Class/' + classcode + '_'+section)
-    const createRef= fire.database().ref('Classref/' + classcode + '_'+section+'/creatordetails')
-    const addName= fire.database().ref('Classref/' +classcode+ "_"+section+ '/studentlist/' + matricnum)
+    const createRef= fire.database().ref('Classreff/' + classcode + '_'+section+'/Creatordetail')
+    const addName= fire.database().ref('Classreff/' +classcode+ "_"+section+ '/studentlist/' + matricnum)
+
+    const addattend= fire.database().ref('Attendreff/')
     
     const createclass = {
       classname,
@@ -73,6 +75,11 @@ useEffect(() =>{
   
     }
     addName.set(adname);
+
+    const addAttend = {
+      class:''
+    }
+    addattend.set(addAttend);
     console.log(getname3.name)
     console.log(getname3.matricnum)
 };

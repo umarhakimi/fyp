@@ -9,6 +9,7 @@ import QRCode from 'qrcode.react';
 import fire from "../../fire";
 import Group from "../Group/Group"
 import Attendance from "../Class/Attendace/Attendace"
+import Test from '../Test/testAttend';
 
 const outbox={
     padding:10,
@@ -56,9 +57,11 @@ const text3 ={
 const button ={
     marginLeft:30,
     width:100,
+    justify:'center'
 };
 const button1 ={
     width:100,
+   
 };
 
 
@@ -81,7 +84,7 @@ export default function MyClass ({Class}){
    
 
    useEffect(() =>{
-    const getName = fire.database().ref('Classref/' +Class.classcode + '_'+Class.section+ '/creatordetails');
+    const getName = fire.database().ref('Classreff/' +Class.classcode + '_'+Class.section+ '/Creatordetail');
     getName.once("value",(snapshot) =>{
 
         const getname3=[];
@@ -93,7 +96,7 @@ export default function MyClass ({Class}){
 var user = fire.auth().currentUser;
 
 useEffect(() => {
-    const getstudent = fire.database().ref( 'Classref/' +Class.classcode + '_'+Class.section+ '/studentlist');
+    const getstudent = fire.database().ref( 'Classreff/' +Class.classcode + '_'+Class.section+ '/studentlist');
     getstudent.on("value",(snapshot) => {
         const getstudent2 = snapshot.val();
       
@@ -103,15 +106,16 @@ useEffect(() => {
            
         }
         setgetstudent3(getstudent3);
+        console.log(getstudent3[1])
     });
 },[]);
 
 
 
 function copyFbRecord() {    
-    const getData = fire.database().ref('Classref/' +Class.classcode + '_'+Class.section+ '/studentlist');
-    const putData= fire.database().ref('Classref/' +Class.classcode+ "_"+Class.section+ '/Attendance/'+DD+'_'+MM+'_'+YY+'/member')
-    const putStatus= fire.database().ref('Classref/' +Class.classcode+ "_"+Class.section+ '/Attendance/'+DD+'_'+MM+'_'+YY)
+    const getData = fire.database().ref('Classreff/' +Class.classcode + '_'+Class.section+ '/studentlist');
+    const putData= fire.database().ref('Classreff/' +Class.classcode+ "_"+Class.section+ '/Attendance/'+DD+'_'+MM+'_'+YY+'/member')
+    const putStatus= fire.database().ref('Classreff/' +Class.classcode+ "_"+Class.section+ '/Attendance/'+DD+'_'+MM+'_'+YY)
 
  
 
@@ -140,7 +144,7 @@ function copyFbRecord() {
 }
 
 useEffect(() => {
-    const inforef = fire.database().ref('Classref/'+Class.classcode + '_'+Class.section+'/Attendance');
+    const inforef = fire.database().ref('Classreff/'+Class.classcode + '_'+Class.section+'/Attendance');
     inforef.on("value",(snapshot) => {
         const myinfo = snapshot.val();
   
@@ -198,7 +202,7 @@ const YY = date.getFullYear();
              {getAttendance 
                             ? getAttendance.map((Info, index) => <Attendance Info={Info} key={index} />)
                         : ''}
-                        <Panel><Button color={"green"} style={button1} onClick={copyFbRecord}>New</Button> </Panel>
+                     
                         </div>
                 </Drawer.Body>
                 <Drawer.Footer>
@@ -219,8 +223,8 @@ const YY = date.getFullYear();
                 </Drawer.Header>
                     <Drawer.Body>
                         <div>
-                        {getAttendance 
-                            ? getAttendance.map((Student, index) => <StudentList Student={Student} key={index} />)
+                        {getstudent3 
+                            ? getstudent3.map((Student, index) => <StudentList Student={Student} key={index} />)
                         : ''}
                         </div>
                     </Drawer.Body>
@@ -251,7 +255,7 @@ const YY = date.getFullYear();
 
         <Divider vertical />
 
-            <Button color={"green"} style={button} >Delete</Button>  
+            
             </Panel>
                 
         

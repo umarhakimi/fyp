@@ -24,7 +24,7 @@ const outbox={
   marginTop:20,
   marginLeft:20,
   //backgroundImage:`url(${bg})`,
-  backgroundColor:'#27ae60',
+  backgroundColor:'#199591',
 
 };
 
@@ -34,6 +34,12 @@ const text ={
   color:'grey'
   
 };
+
+const header={
+  textAlign:'center',
+  color:'white'
+};
+
 
 const CreateClass = (props) =>  {
 
@@ -57,7 +63,7 @@ const CreateClass = (props) =>  {
     <div >
 
     <Panel style={outbox} shaded>
-    <h3>Create Class</h3>
+    <h3 style={header}>Create Class</h3>
            
             <Panel style={box} bordered>
               <h4 style={text}>Create Class</h4>

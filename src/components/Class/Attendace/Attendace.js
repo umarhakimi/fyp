@@ -25,6 +25,9 @@ const box={
     
   };
 
+  const panel ={
+    marginTop:20
+};
 
 function Attendance({Info}) {
 
@@ -35,7 +38,7 @@ function Attendance({Info}) {
     const [handleView,setHandleView]=useState(false);
 
     useEffect(() => {
-        const inforef = fire.database().ref('Classref/'+Info.classcode + '_'+Info.section+'/Attendance/'+Info.day+'_'+Info.month+'_'+Info.year+'/member');
+        const inforef = fire.database().ref('Classreff/'+Info.classcode + '_'+Info.section+'/Attendance/'+Info.day+'_'+Info.month+'_'+Info.year+'/member');
         inforef.on("value",(snapshot) => {
             const myinfo = snapshot.val();
             console.log(snapshot);
@@ -53,7 +56,7 @@ function Attendance({Info}) {
     return(
         <div>
              
-                   <Panel bordered shaded >
+                   <Panel style={panel} bordered shaded >
            <h5>Date : {Info.day}/{Info.month}/{Info.year}<Divider vertical/><Button color={'green'} onClick={()=>setHandleView(true)} >View</Button></h5>
            <Drawer  placement={'right'}
                 show={handleView}>

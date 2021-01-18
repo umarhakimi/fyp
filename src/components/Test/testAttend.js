@@ -6,8 +6,8 @@ import {Drawer} from 'rsuite';
 import Iattend from "../Iattend";
 import QRCode from 'qrcode.react';
 import fire from "../../fire";
-import StudentService from './StudentService';
-
+import StudentService from '../StudentList/StudentService';
+import Test2 from '../Test/test2';
 
 const small={
     width:1000,
@@ -50,48 +50,55 @@ const button={
 
 
 
-export default function StudentList ({Student}){
+export default function Test ({Student}){
 
    const [handleToggle,setHandleToggle] = useState(false);
    const [getAttendance, setGetAttendance] = useState();
 
-
-   var user = fire.auth().currentUser;
-   function handleDelete() {
-    const classdel= fire.database().ref('Students/'+user.uid + '/Class/' + Student.classcode + '_'+Student.section)
-    const namedel= fire.database().ref('Classreff/' +Student.classcode+ "_"+Student.section+ '/studentlist/' + Student.matricnum)
-    
-    classdel.remove();
-    namedel.remove();
-    console.log(Student.classcode);
-};
-
-
+//classcode matricnum section name status
 
 useEffect(() => {
-    const inforef = fire.database().ref('Classreff/'+Student.classcode + '_'+Student.section+'/Attendance/'+Student.day+'_'+Student.month+'_'+Student.year+'/member');
+    const inforef = fire.database().ref('Classreff/'+Student.classcode + '_'+Student.section+'/Attendance');
     inforef.on("value",(snapshot) => {
         const myinfo = snapshot.val();
         console.log(snapshot);
         const getAttendance=[];
         for (let id in myinfo){
+            getAttendance.matricnum=Student.matricnum
             getAttendance.push(myinfo[id]);
            
         }
         setGetAttendance(getAttendance);
         console.log(getAttendance.matricnum)
-        console.log(Student.day);
     });
 },[]);
-
 
     return(
         <div>
             <Panel style={panel} bordered shaded>
       
+            
+            <Button color={'green'} onClick={()=>setHandleToggle(true)}>View</Button>
+            <Drawer.Title>{Student.name}</Drawer.Title>
+            <Drawer
+                show={handleToggle}>
+                <Drawer.Header>
+                   
+                </Drawer.Header>
+                    <Drawer.Body>
+                        <div>
+                        {getAttendance 
+                            ? getAttendance.map((Student, index) => <Test2 Student={Student} key={index} matricnum/>)
+                        : ''}
+                        </div>
+                    </Drawer.Body>
+                <Drawer.Footer>
+                    <Button appearance="primary" color={"green"}style={button} onClick={()=>setHandleToggle(false)}>Close</Button>
+                </Drawer.Footer>
+            </Drawer>    
        
             <div>
-                <h6>{Student.name} <Divider vertical/> {Student.matricnum}</h6>
+                
             </div>
 
         

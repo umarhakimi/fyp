@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { Panel, Divider,Header, Button } from 'rsuite';
+import bg from "../bg.jpg"
+import {Drawer} from 'rsuite';
+import Iattend from "../Iattend";
+import QRCode from 'qrcode.react';
 import fire from "../../fire";
+import StudentService from '../StudentList/StudentService';
 
 
 const small={
@@ -45,7 +50,10 @@ const button={
 
 
 
-export default function StudentService ({Info}){
+export default function Test2 ({Student}){
+
+
+//classcode matricnum section name status
 
 
 
@@ -53,9 +61,12 @@ export default function StudentService ({Info}){
     return(
         <div>
             <Panel style={panel} bordered shaded>
-            <div>
-                <h5>{Info.name}</h5>
-            </div>
+
+                        <div>
+                 <h6>{Student.day}{Student.matricnum}{Student.month}</h6>
+                        </div>
+
+
             </Panel>
         
       </div>

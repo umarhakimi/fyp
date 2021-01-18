@@ -2,11 +2,13 @@ import React,{useState} from "react";
 import QRCode from 'qrcode.react';
 import { Button, Divider, Header } from "rsuite";
 import {Panel} from 'rsuite';
-
+import fire from "../fire";
 
 const text ={
     alignItems:'center',
-    textAlign:'center '
+    textAlign:'center ',
+    
+    marginTop:20,
 }
 
 const QR ={
@@ -45,15 +47,50 @@ const Iattend = (props) => {
           console.log("Longitude is :", position.coords.longitude);
         });
     
+
+
+        function copyFbRecord() {    
+            const getData = fire.database().ref('Classreff/' +classcode + '_'+section+ '/studentlist');
+            const putData= fire.database().ref('Classreff/' +classcode+ "_"+section+ '/Attendance/'+DD+'_'+MM+'_'+YY+'/member')
+            const putStatus= fire.database().ref('Classreff/' +classcode+ "_"+section+ '/Attendance/'+DD+'_'+MM+'_'+YY)
+        
+         
+        
+            return new Promise((resolve, reject) => {
+                 getData.once('value').then(snap => {
+                      return putData.set(snap.val());
+                 }).then(() => {
+                      console.log('Done!');
+                      resolve();
+                 }).catch(err => {
+                    
+                      reject();
+                   
+                 });
+                 const reff = {
+                    day:DD,
+                    month:MM,
+                    year:YY,
+                    classcode:classcode,
+                    section:section,
+                  }
+                  putStatus.set(reff);
+        
+              
+            });
+        }
+
     return(
         <div>
             <Panel style={box} shaded>
-                <Header>Class Name</Header>
+                <Panel>
+                <h5 style={text}>{classname}</h5>
+                </Panel>
                 <QRCode style={QR}
       value={classcode+','+section+','+classname+','+DD+','+MM+','+YY+','+latitude+','+longitude}
     />
     <div>
-            <Button style={text}>Create Attendance</Button>
+            <Button style={text} color={'green'} onClick={copyFbRecord}>Create Attendance</Button>
             </div>
             </Panel>
         </div>

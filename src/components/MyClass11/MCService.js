@@ -11,7 +11,7 @@ const outbox={
     marginTop:20,
     marginLeft:20,
     //backgroundImage:`url(${bg})`,
-    backgroundColor:'#27ae60',
+    backgroundColor:'#199591',
     justify:'center',
     width:'1500',
     shaded:'true',
@@ -53,7 +53,7 @@ const MCService=()=>{
         <div >
           <FlexboxGrid justify={'center'} style={outbox}>
                 <Panel  just>
-                <h3 style={header}>Profile</h3>
+                <h3 style={header}>My Class</h3>
  
      
     
