@@ -3,6 +3,7 @@ import QRCode from 'qrcode.react';
 import { Button, Divider, Header } from "rsuite";
 import {Panel} from 'rsuite';
 import fire from "../fire";
+import {Alert } from 'rsuite';
 
 const text ={
     alignItems:'center',
@@ -50,6 +51,7 @@ const Iattend = (props) => {
 
 
         function copyFbRecord() {    
+            const alert = Alert.success('Your attendance has been created')
             const getData = fire.database().ref('Classreff/' +classcode + '_'+section+ '/studentlist');
             const putData= fire.database().ref('Classreff/' +classcode+ "_"+section+ '/Attendance/'+DD+'_'+MM+'_'+YY+'/member')
             const putStatus= fire.database().ref('Classreff/' +classcode+ "_"+section+ '/Attendance/'+DD+'_'+MM+'_'+YY)

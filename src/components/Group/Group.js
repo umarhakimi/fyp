@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Panel, Divider,Header, Button, Drawer, FormGroup, Input } from 'rsuite';
 import fire from "../../fire";
 import GroupService from './GroupService';
-
+import {Alert } from 'rsuite';
 
 
 const button={
@@ -35,7 +35,7 @@ const Group = (props) => {
     },[]);
     
     function handleGroup() {
-   
+        const alert = Alert.success('New group has been created')
         const creategroup= fire.database().ref('Classreff/' + classcode + '_'+section+'/Group/'+groupname) 
         const adname= fire.database().ref('Classreff/' + classcode + '_'+section+'/Group/'+groupname+'/member/'+getprofile.matricnum) 
 

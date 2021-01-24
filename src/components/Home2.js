@@ -63,7 +63,7 @@ const Home = () =>  {
             
             <Panel shaded style={small} >
                 <h6 style={text}>{getname3.name} | LEVEL 3</h6>
-                <img style={{marginLeft:30,marginBottom:40, borderRadius:120, height:130, width:120, marginTop:20, display:'flex', alignItems:'center'}} src={image} />
+                <img style={{marginLeft:30,marginBottom:40, borderRadius:120, height:130, width:120, marginTop:20, display:'flex', alignItems:'center'}} src={getname3.profileimg} />
                 <h6 style={{marginLeft:79,color:'grey'}}>{getname3.course}</h6>
             
                 </Panel>
